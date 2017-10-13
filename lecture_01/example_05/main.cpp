@@ -4,32 +4,23 @@ using namespace cv;
 
 int main(int argc, char** argv )
 {
-	VideoCapture cap(0);
+	Mat image = imread("../../res/dark.jpg");
 
-	while(true) {
-		Mat image;
-		cap.read(image);
+	Mat grayImg;
+	cvtColor(image, grayImg, CV_BGR2GRAY);
 
-		Mat grayImg;
-		cvtColor(image, grayImg, CV_BGR2GRAY);
+	double minVal, maxVal;
+	minMaxLoc(grayImg, &minVal, &maxVal);
 
-		double minVal, maxVal;
-		minMaxLoc(grayImg, &minVal, &maxVal);
+	Mat normImg = (image - minVal) * 255 / (maxVal - minVal);
+	
+	// convertScaleAbs
+	// normalize
 
-		Mat normImg = (image - minVal) * 255 / (maxVal - minVal);
-		
-		// convertScaleAbs
-		// normalize
-
-		imshow("image", image);
-		imshow("normImg", normImg);
-		
-		char key = waitKey(1);
-		if (key == 27) {
-			break;
-		}
-	}
-
+	imshow("image", image);
+	imshow("normImg", normImg);
+	
+	waitKey(0);
 
 	return 0;
 }

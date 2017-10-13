@@ -15,7 +15,7 @@ int main(int argc, char** argv )
 		//Создание изображения для вывода
 		Mat resultImage(image.size(), CV_8U, Scalar(0));
 
-		//Цветовой фильтр
+		// Цветовой фильтр
 		for (int x = 0; x < image.size().width; x++) {
 			for (int y = 0; y < image.size().height; y++) {
 				Vec3b pixel = image.at<Vec3b>(y, x);
@@ -24,11 +24,12 @@ int main(int argc, char** argv )
 				uchar red   = pixel.val[2];
 
 				if (red > 100) {
-				//if (red > 100 && blue < 50 && green < 50) {
+				// if (red > 100 && blue < 50 && green < 50) {
 					resultImage.at<uchar>(y, x) = 255;
 				}
 			}
 		}
+		// inRange(image,Scalar(0,0,100), Scalar(50,50,255), resultImage);
 
 		imshow("resultImage", resultImage);
 		imshow("image", image);
